@@ -1,5 +1,43 @@
-export const Personalinformation=()=>{
+import { useRef, useState } from "react"
+import './Personalinformation.css'
+import { useNavigate } from "react-router"
+export const Personalinformation=({currentStep,nextStep})=>{
+    
+    const phoneNumberRef=useRef()
+    const[phoneNumberInvalid,setphoneNumberValidity]=useState(false)
+    
+    const emailRef=useRef()
+    const [emailInvalid,setEmailValidity]=useState(false)    
 
+
+
+    const firstNameRef=useRef()
+    const [firstNameInvalid,setFirstNameValidity]=useState(false)
+    const validateAndNext=()=>{
+            if(phoneNumberRef.current.value===""){
+                setphoneNumberValidity(true)
+            }else{
+                setphoneNumberValidity(false)
+            }
+             
+            if(emailRef.current.value===""){
+                setEmailValidity(true)
+            }else{
+                setEmailValidity(false)
+            }
+
+             if(firstNameRef.current.value===""){
+                setFirstNameValidity(true)
+            }else{
+                setFirstNameValidity(false)
+            }
+            if(!firstNameInvalid && !emailInvalid && !phoneNumberInvalid){
+                currentStep(false)
+                nextStep(true)
+            }
+            
+    }
+    
     return(
         <div id="step1" class="form-section active">
             <div class="bg-white rounded-xl shadow-lg p-8">
@@ -9,15 +47,15 @@ export const Personalinformation=()=>{
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                        <input type="text" id="fullName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="John Doe" required=""/>
+                        <input ref={firstNameRef} type="text" id="fullName" className={(firstNameInvalid ? "danger ":"") + "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"} placeholder="John Doe" required=""/>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                        <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="john@example.com" required=""/>
+                        <input ref={emailRef} type="email" id="email" className={(emailInvalid ? "danger ":"")+ "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"} placeholder="john@example.com" required=""/>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                        <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="+1 (555) 123-4567" required=""/>
+                        <input ref={phoneNumberRef} type="tel" id="phone" className={(phoneNumberInvalid ? "danger ":"") + "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"} placeholder="+1 (555) 123-4567" required=""/>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
@@ -34,7 +72,7 @@ export const Personalinformation=()=>{
                 </div>
                 
                 <div class="flex justify-end mt-8">
-                    <button onclick="nextStep()" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all">
+                    <button onClick={validateAndNext} class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all">
                         Next Step →
                     </button>
                 </div>

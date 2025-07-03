@@ -6,16 +6,22 @@ import { Personalinformation } from './components/personalinformation/Personalin
 import { Previewanddownload } from './components/previewanddownload/Previewanddownload';
 import { Templateselection } from './components/templateselection/Templateselection';
 import { Experience } from './components/experience/Experience';
+import { useState } from 'react';
 
 function App() {
+  const[showExperience,setShowExperience]=useState(false)
+  const[showPersonalInformation,setShowPersonalInformation]=useState(true)
+  const[showPreviewAndDownload,setShowPreviewAndDownload]=useState(false)
+  const[templateSelection,setShowTemplateSelection]=useState(false)
   return (
     <div>
     <Header/>
     <Progressbar/>
-    <Experience/>
-    <Personalinformation/>
-    <Previewanddownload/>
-    <Templateselection/>
+    {showExperience && <Experience/>}
+    
+    {showPersonalInformation  && <Personalinformation currentStep={setShowPersonalInformation} nextStep={setShowExperience}/>}
+    {showPreviewAndDownload &&<Previewanddownload/>}
+    {templateSelection && <Templateselection/>}
 
     </div>
   );
