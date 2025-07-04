@@ -13,16 +13,17 @@ function App() {
   const[showPersonalInformation,setShowPersonalInformation]=useState(true)
   const[showPreviewAndDownload,setShowPreviewAndDownload]=useState(false)
   const[templateSelection,setShowTemplateSelection]=useState(false)
+  const[stepNumber,setStepNumber]=useState(1)
   return (
     <div>
     <Header/>
-    <Progressbar/>
-    {showExperience && <Experience/>}
+    <Progressbar stepNumber={stepNumber}/>
+    {showExperience && <Experience setStepNumber={setStepNumber} currentStep={setShowExperience} nextStep={setShowTemplateSelection} previousStep={setShowPersonalInformation}/>}
     
     {showPersonalInformation  && <Personalinformation currentStep={setShowPersonalInformation} nextStep={setShowExperience}/>}
-    {showPreviewAndDownload &&<Previewanddownload/>}
-    {templateSelection && <Templateselection/>}
-
+    {showPreviewAndDownload &&<Previewanddownload currentStep={setShowPreviewAndDownload} previouStep={setShowTemplateSelection}/>}
+    {templateSelection && <Templateselection currentStep={setShowTemplateSelection} nextStep={setShowPreviewAndDownload} previousStep={setShowExperience}/>}
+    
     </div>
   );
   

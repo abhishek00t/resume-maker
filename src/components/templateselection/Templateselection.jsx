@@ -1,7 +1,14 @@
-export const Templateselection=()=>{
-
+export const Templateselection=({currentStep,nextStep,previousStep})=>{
+       const showNext=()=>{
+          nextStep(true)
+          currentStep(false)
+       }
+       const showPrevious=()=>{
+           previousStep(true)
+           currentStep(false)
+       }
     return(
-        <div id="step3" class="form-section">
+        <div >
             <div class="bg-white rounded-xl shadow-lg p-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Choose Your Template</h2>
                 <p class="text-gray-600 mb-8">Select a professional template that suits your style</p>
@@ -73,10 +80,10 @@ export const Templateselection=()=>{
                 </div>
                 
                 <div class="flex justify-between mt-8">
-                    <button onclick="prevStep()" class="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all">
+                    <button onClick={showPrevious} class="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all">
                         ← Previous
                     </button>
-                    <button id="templateNextBtn" onclick="nextStep()" class="bg-gray-400 text-white px-8 py-3 rounded-lg font-semibold cursor-not-allowed" disabled="">
+                    <button onClick={showNext} id="templateNextBtn" onclick="nextStep()" class="bg-gray-400 text-white px-8 py-3 rounded-lg font-semibold cursor-not-allowed" disabled="">
                         Next Step →
                     </button>
                 </div>

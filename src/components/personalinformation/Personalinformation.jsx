@@ -31,7 +31,8 @@ export const Personalinformation=({currentStep,nextStep})=>{
             }else{
                 setFirstNameValidity(false)
             }
-            if(!firstNameInvalid && !emailInvalid && !phoneNumberInvalid){
+            if(emailRef.current.value!=="" &&firstNameRef.current.value!=="" && phoneNumberRef.current.value!==""){
+               
                 currentStep(false)
                 nextStep(true)
             }

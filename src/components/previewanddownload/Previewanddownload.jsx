@@ -1,7 +1,13 @@
-export const Previewanddownload=()=>{
+export const Previewanddownload=({currentStep,previouStep})=>{
+    
+    const showPrevious=()=>{
+          currentStep(false)
+          previouStep(true)
 
+
+    }
     return(
-        <div id="step4" class="form-section">
+        <div>
             <div class="bg-white rounded-xl shadow-lg p-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Preview &amp; Download</h2>
                 <p class="text-gray-600 mb-8">Review your resume and download as PDF</p>
@@ -41,10 +47,10 @@ export const Previewanddownload=()=>{
                 </div>
                 
                 <div class="flex justify-between mt-8">
-                    <button onclick="prevStep()" class="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all">
+                    <button onclick={showPrevious} class="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all">
                         ← Previous
                     </button>
-                    <button onclick="startOver()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all">
+                    <button  class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all">
                         Create Another Resume
                     </button>
                 </div>
