@@ -7,6 +7,7 @@ import { Previewanddownload } from './components/previewanddownload/Previewanddo
 import { Templateselection } from './components/templateselection/Templateselection';
 import { Experience } from './components/experience/Experience';
 import { useState } from 'react';
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   const[showExperience,setShowExperience]=useState(false)
