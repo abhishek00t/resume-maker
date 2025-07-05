@@ -1,4 +1,5 @@
-export const Templateselection=({currentStep,nextStep,previousStep})=>{
+export const Templateselection=({currentStep,nextStep,previousStep,setStepNumber})=>{
+       setStepNumber(3);
        const showNext=()=>{
           nextStep(true)
           currentStep(false)
