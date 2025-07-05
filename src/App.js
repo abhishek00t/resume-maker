@@ -24,7 +24,7 @@ function App() {
     {showPersonalInformation  && <Personalinformation currentStep={setShowPersonalInformation} nextStep={setShowExperience}/>}
     {showPreviewAndDownload &&<Previewanddownload currentStep={setShowPreviewAndDownload} previouStep={setShowTemplateSelection}/>}
     {templateSelection && <Templateselection currentStep={setShowTemplateSelection} nextStep={setShowPreviewAndDownload} previousStep={setShowExperience}/>}
-    
+    <Analytics/>
     </div>
   );
   
