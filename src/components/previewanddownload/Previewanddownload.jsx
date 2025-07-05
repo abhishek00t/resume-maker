@@ -1,5 +1,5 @@
-export const Previewanddownload=({currentStep,previouStep})=>{
-    
+export const Previewanddownload=({currentStep,previouStep,setStepNumber})=>{
+       setStepNumber(4);    
     const showPrevious=()=>{
           currentStep(false)
           previouStep(true)
@@ -47,7 +47,7 @@ export const Previewanddownload=({currentStep,previouStep})=>{
                 </div>
                 
                 <div class="flex justify-between mt-8">
-                    <button onclick={showPrevious} class="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all">
+                    <button onClick={showPrevious} class="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all">
                         ← Previous
                     </button>
                     <button  class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all">

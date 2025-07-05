@@ -1,7 +1,8 @@
 import { useRef, useState } from "react"
 import './Personalinformation.css'
 import { useNavigate } from "react-router"
-export const Personalinformation=({currentStep,nextStep})=>{
+export const Personalinformation=({currentStep,nextStep,setStepNumber})=>{
+       setStepNumber(1);
     
     const phoneNumberRef=useRef()
     const[phoneNumberInvalid,setphoneNumberValidity]=useState(false)
