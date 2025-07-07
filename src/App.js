@@ -15,6 +15,7 @@ function App() {
   const [showPreviewAndDownload, setShowPreviewAndDownload] = useState(false);
   const [templateSelection, setShowTemplateSelection] = useState(false);
   const [stepNumber, setStepNumber] = useState(1);
+  const [userDetail, setUserDetail] = useState({});
   return (
     <div>
       <Header />
@@ -22,6 +23,8 @@ function App() {
       <div style={{ display: showExperience ? "block" : "none" }}>
         {" "}
         <Experience
+          userDetail={userDetail}
+          setUserDetail={setUserDetail}
           setStepNumber={setStepNumber}
           currentStep={setShowExperience}
           nextStep={setShowTemplateSelection}
@@ -31,6 +34,7 @@ function App() {
       <div style={{ display: showPersonalInformation ? "block" : "none" }}>
         {" "}
         <Personalinformation
+          setUserDetail={setUserDetail}
           setStepNumber={setStepNumber}
           currentStep={setShowPersonalInformation}
           nextStep={setShowExperience}
@@ -38,9 +42,11 @@ function App() {
       </div>
       <div style={{ display: showPreviewAndDownload ? "block" : "none" }}>
         <Previewanddownload
+          userDetail={userDetail}
           setStepNumber={setStepNumber}
           currentStep={setShowPreviewAndDownload}
           previouStep={setShowTemplateSelection}
+          stepNumber={stepNumber}
         />
       </div>
       <div style={{ display: templateSelection ? "block" : "none" }}>
