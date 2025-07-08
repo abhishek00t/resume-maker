@@ -8,6 +8,7 @@ import { Templateselection } from "./components/templateselection/Templateselect
 import { Experience } from "./components/experience/Experience";
 import { useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { Modalpopup } from "./components/utils/Modalpopup";
 
 function App() {
   const [showExperience, setShowExperience] = useState(false);
@@ -58,6 +59,7 @@ function App() {
         />
       </div>
       <Analytics />
+      <Modalpopup warning={"an error occured"} />
     </div>
   );
 }
