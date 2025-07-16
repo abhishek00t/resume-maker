@@ -17,6 +17,7 @@ function App() {
   const [templateSelection, setShowTemplateSelection] = useState(false);
   const [stepNumber, setStepNumber] = useState(1);
   const [userDetail, setUserDetail] = useState({});
+  const [showPopup, setPopup] = useState(false);
   return (
     <div>
       <Header />
@@ -59,7 +60,13 @@ function App() {
         />
       </div>
       <Analytics />
-      <Modalpopup warning={"an error occured"} />
+      {showPopup && (
+        <Modalpopup
+          setPopup={setPopup}
+          showPopup={showPopup}
+          warning={"an error occured"}
+        />
+      )}
     </div>
   );
 }

@@ -1,4 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { CircularProgress } from "@mui/material";
+import { Document, pdfjs } from "react-pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 export const Previewanddownload = ({
   currentStep,
@@ -7,23 +10,33 @@ export const Previewanddownload = ({
   userDetail,
   stepNumber,
 }) => {
+  const [showResume, setShowResume] = useState(false);
+  const [resumeFromServer, setresumeFromServer] = useState(" ");
+  const [circularProgress, setcircularProgress] = useState(true);
+
   useEffect(() => {
     console.log(stepNumber, stepNumber == 4);
     if (stepNumber == 4) {
       console.log("inside if");
-      fetch("https://qeqwe.free.beeceptor.com", {
+      fetch("http://localhost:8001/resume", {
         headers: {},
         body: JSON.stringify(userDetail),
         method: "POST",
       }).then((resp) => {
-        resp.text().then((value) => {
-          console.log(value);
+        setcircularProgress(false);
+        resp.arrayBuffer().then((buffer) => {
+          const blob = new Blob([buffer], { type: "application/pdf" });
+          const url = URL.createObjectURL(blob);
+          setresumeFromServer(url);
+          setShowResume(true);
         });
       });
     }
-  });
+  }, [stepNumber]);
   console.log(userDetail);
   const showPrevious = () => {
+    setresumeFromServer(" ");
+    setShowResume(false);
     currentStep(false);
     setStepNumber(3);
     previouStep(true);
@@ -42,7 +55,16 @@ export const Previewanddownload = ({
               class="border rounded-lg p-6 bg-white"
               style={{ "min-height": "600px" }}
             >
-              <div id="resumePreview" class="resume-preview"></div>
+              {circularProgress && <CircularProgress />}
+
+              {showResume && (
+                <iframe
+                  src={resumeFromServer}
+                  width="100%"
+                  height="600px"
+                  title="Resume Preview"
+                />
+              )}
             </div>
           </div>
 
