@@ -1,0 +1,31 @@
+.modalpopup {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
+  opacity: 0.8;
+}
+.content {
+  top: 40%;
+  left: 10%;
+  height: 20%;
+  width: 80%;
+  position: fixed;
+  background-color: white;
+  opacity: 1 !important;
+}
+.popup {
+  top: 25%;
+  left: 25%;
+  position: relative;
+  height: fit-content;
+  width: 100%;
+  overflow: auto;
+}
+.button {
+  left: 91%;
+  position: relative;
+}

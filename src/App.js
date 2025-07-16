@@ -8,6 +8,7 @@ import { Templateselection } from "./components/templateselection/Templateselect
 import { Experience } from "./components/experience/Experience";
 import { useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { Modalpopup } from "./components/utils/Modalpopup";
 
 function App() {
   const [showExperience, setShowExperience] = useState(false);
@@ -15,6 +16,8 @@ function App() {
   const [showPreviewAndDownload, setShowPreviewAndDownload] = useState(false);
   const [templateSelection, setShowTemplateSelection] = useState(false);
   const [stepNumber, setStepNumber] = useState(1);
+  const [userDetail, setUserDetail] = useState({});
+  const [showPopup, setPopup] = useState(false);
   return (
     <div>
       <Header />
@@ -22,6 +25,8 @@ function App() {
       <div style={{ display: showExperience ? "block" : "none" }}>
         {" "}
         <Experience
+          userDetail={userDetail}
+          setUserDetail={setUserDetail}
           setStepNumber={setStepNumber}
           currentStep={setShowExperience}
           nextStep={setShowTemplateSelection}
@@ -31,6 +36,7 @@ function App() {
       <div style={{ display: showPersonalInformation ? "block" : "none" }}>
         {" "}
         <Personalinformation
+          setUserDetail={setUserDetail}
           setStepNumber={setStepNumber}
           currentStep={setShowPersonalInformation}
           nextStep={setShowExperience}
@@ -38,9 +44,11 @@ function App() {
       </div>
       <div style={{ display: showPreviewAndDownload ? "block" : "none" }}>
         <Previewanddownload
+          userDetail={userDetail}
           setStepNumber={setStepNumber}
           currentStep={setShowPreviewAndDownload}
           previouStep={setShowTemplateSelection}
+          stepNumber={stepNumber}
         />
       </div>
       <div style={{ display: templateSelection ? "block" : "none" }}>
@@ -52,6 +60,13 @@ function App() {
         />
       </div>
       <Analytics />
+      {showPopup && (
+        <Modalpopup
+          setPopup={setPopup}
+          showPopup={showPopup}
+          warning={"an error occured"}
+        />
+      )}
     </div>
   );
 }
