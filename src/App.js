@@ -18,9 +18,11 @@ function App() {
   const [stepNumber, setStepNumber] = useState(1);
   const [userDetail, setUserDetail] = useState({});
   const [showPopup, setPopup] = useState(false);
+  const [templateName, setTemplateName] = useState("");
   return (
     <div>
       <Header />
+      {templateName}
       <Progressbar stepNumber={stepNumber} />
       <div style={{ display: showExperience ? "block" : "none" }}>
         {" "}
@@ -49,6 +51,7 @@ function App() {
           currentStep={setShowPreviewAndDownload}
           previouStep={setShowTemplateSelection}
           stepNumber={stepNumber}
+          template={templateName}
         />
       </div>
       <div style={{ display: templateSelection ? "block" : "none" }}>
@@ -57,6 +60,7 @@ function App() {
           currentStep={setShowTemplateSelection}
           nextStep={setShowPreviewAndDownload}
           previousStep={setShowExperience}
+          setTemplateName={setTemplateName}
         />
       </div>
       <Analytics />

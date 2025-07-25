@@ -1,118 +1,116 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const Templateselection = ({
   currentStep,
   nextStep,
   previousStep,
   setStepNumber,
+  setTemplateName,
 }) => {
+  const [templates, setTemplates] = useState([]);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [selectedTemplateUrl, setSelectedTemplateUrl] = useState(null);
+
+  useEffect(() => {
+    const fetchTemplates = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_SERVERURL}template`
+        );
+        const data = await response.json();
+        console.log("Templates from API:", data);
+        setTemplates(data.slice(0, 3)); // Limit to 3 templates
+      } catch (error) {
+        console.error("Error fetching templates:", error);
+      }
+    };
+    fetchTemplates();
+  }, []);
+
   const showNext = () => {
-    nextStep(true);
-    setStepNumber(4);
-    currentStep(false);
+    if (selectedTemplate) {
+      nextStep(true);
+      setStepNumber(4);
+      currentStep(false);
+    }
   };
+
   const showPrevious = () => {
     previousStep(true);
     setStepNumber(2);
     currentStep(false);
   };
+
+  const selectTemplate = (template) => {
+    setSelectedTemplate(template.id);
+    setSelectedTemplateUrl(template.template_location);
+    setTemplateName(template.template_name);
+  };
+
   return (
     <div>
-      <div class="bg-white rounded-xl shadow-lg p-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">
           Choose Your Template
         </h2>
-        <p class="text-gray-600 mb-8">
+        <p className="text-gray-600 mb-8">
           Select a professional template that suits your style
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div
-            class="template-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500"
-            onclick="selectTemplate('classic')"
-          >
-            <div class="bg-gray-50 rounded-lg p-4 mb-4 h-64 flex flex-col justify-between">
-              <div>
-                <div class="h-3 bg-gray-800 rounded mb-2"></div>
-                <div class="h-2 bg-gray-400 rounded mb-4 w-3/4"></div>
-                <div class="space-y-2">
-                  <div class="h-2 bg-gray-300 rounded"></div>
-                  <div class="h-2 bg-gray-300 rounded w-5/6"></div>
-                  <div class="h-2 bg-gray-300 rounded w-4/6"></div>
-                </div>
-              </div>
-              <div class="space-y-2">
-                <div class="h-2 bg-blue-400 rounded w-1/2"></div>
-                <div class="h-2 bg-gray-300 rounded"></div>
-                <div class="h-2 bg-gray-300 rounded w-3/4"></div>
-              </div>
-            </div>
-            <h3 class="font-semibold text-gray-900">Classic Professional</h3>
-            <p class="text-sm text-gray-600">Clean and traditional layout</p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {templates.map((template) => {
+            const isSelected = selectedTemplate === template.id;
 
-          <div
-            class="template-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500"
-            onclick="selectTemplate('modern')"
-          >
-            <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-4 mb-4 h-64 flex flex-col justify-between">
-              <div>
-                <div class="h-3 bg-blue-600 rounded mb-2"></div>
-                <div class="h-2 bg-gray-400 rounded mb-4 w-3/4"></div>
-                <div class="grid grid-cols-2 gap-4">
-                  <div class="space-y-2">
-                    <div class="h-2 bg-gray-300 rounded"></div>
-                    <div class="h-2 bg-gray-300 rounded w-5/6"></div>
-                  </div>
-                  <div class="space-y-2">
-                    <div class="h-2 bg-purple-400 rounded w-1/2"></div>
-                    <div class="h-2 bg-gray-300 rounded"></div>
-                  </div>
+            return (
+              <div
+                key={template.id}
+                className={`template-card border-2 rounded-lg cursor-pointer transition-all ${
+                  isSelected
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-200 hover:border-blue-500"
+                }`}
+                onClick={() => selectTemplate(template)}
+              >
+                {/* Image Preview */}
+                <div className="h-64 bg-white overflow-hidden rounded-t-lg">
+                  <img
+                    src={template.image_location}
+                    alt="Template Preview"
+                    className="object-contain w-full h-full"
+                    style={{ width: "100%", height: "109%" }}
+                  />
                 </div>
-              </div>
-            </div>
-            <h3 class="font-semibold text-gray-900">Modern Creative</h3>
-            <p class="text-sm text-gray-600">
-              Contemporary design with color accents
-            </p>
-          </div>
 
-          <div
-            class="template-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500"
-            onclick="selectTemplate('minimal')"
-          >
-            <div class="bg-white border rounded-lg p-4 mb-4 h-64 flex flex-col justify-between">
-              <div>
-                <div class="h-4 bg-gray-900 rounded mb-1 w-1/2"></div>
-                <div class="h-1 bg-gray-900 rounded mb-4 w-full"></div>
-                <div class="space-y-3">
-                  <div class="h-2 bg-gray-600 rounded w-1/3"></div>
-                  <div class="space-y-1">
-                    <div class="h-1 bg-gray-300 rounded"></div>
-                    <div class="h-1 bg-gray-300 rounded w-5/6"></div>
-                    <div class="h-1 bg-gray-300 rounded w-4/6"></div>
-                  </div>
+                {/* Text Content */}
+                <div className="p-4">
+                  <h3 className="font-semibold text-gray-900 text-lg">
+                    {template.template_name || "Unnamed Template"}
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {template.template_description ||
+                      "No description available."}
+                  </p>
                 </div>
               </div>
-            </div>
-            <h3 class="font-semibold text-gray-900">Minimal Clean</h3>
-            <p class="text-sm text-gray-600">Simple and elegant design</p>
-          </div>
+            );
+          })}
         </div>
 
-        <div class="flex justify-between mt-8">
+        <div className="flex justify-between mt-8">
           <button
             onClick={showPrevious}
-            class="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all"
+            className="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all"
           >
             ← Previous
           </button>
           <button
             onClick={showNext}
-            id="templateNextBtn"
-            onclick="nextStep()"
-            class="bg-gray-400 text-white px-8 py-3 rounded-lg font-semibold cursor-not-allowed"
-            disabled=""
+            disabled={!selectedTemplate}
+            className={`px-8 py-3 rounded-lg font-semibold transition-all ${
+              selectedTemplate
+                ? "bg-blue-600 text-white hover:bg-blue-700"
+                : "bg-gray-400 text-white cursor-not-allowed"
+            }`}
           >
             Next Step →
           </button>
