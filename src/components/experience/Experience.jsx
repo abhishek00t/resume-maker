@@ -21,19 +21,20 @@ export const Experience = ({
 
   const getFormData = () => {
     return {
-      workExperience: [
-        {
-          jobTitle: jobTitleref.current.value,
-          companyName: companyNameref.current.value,
-          year: yearRef.current.value,
-          location: locationRef.current.value,
-          roleAndResponsibilities: roleAndResponsibilitiesRef.current.value,
-        },
-      ],
+      jobTitle1: jobTitleref.current.value,
+      companyName1: companyNameref.current.value,
+      year1: yearRef.current.value,
+      location1: locationRef.current.value,
+      role1: roleAndResponsibilitiesRef.current.value,
+
       degree: degreeRef.current.value,
       graduationYear: graduationYearRef.current.value,
       school: schoolRef.current.value,
-      skills: skillsRef.current.value,
+      skills1: skillsRef.current.value.split(",")[0],
+      skills2: skillsRef.current.value.split(",")[1],
+      skills3: skillsRef.current.value.split(",")[2],
+      skills4: skillsRef.current.value.split(",")[3],
+      skills5: skillsRef.current.value.split(",")[4],
       gpa: GPARef.current.value,
     };
   };

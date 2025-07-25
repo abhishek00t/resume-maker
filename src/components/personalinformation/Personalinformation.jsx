@@ -12,10 +12,11 @@ export const Personalinformation = ({
   const professionalsummaryref = useRef();
   const getFormData = () => {
     return {
-      fullName: firstNameRef.current.value,
+      first_name: firstNameRef.current.value.split(" ")[0],
+      last_name: firstNameRef.current.value.split(" ")[1],
       emailid: emailRef.current.value,
       phoneNumber: phoneNumberRef.current.value,
-      location: locationref.current.value,
+      Location_Summary: locationref.current.value,
       professionaltitle: professionaltitleref.current.value,
       professionalsummary: professionalsummaryref.current.value,
     };

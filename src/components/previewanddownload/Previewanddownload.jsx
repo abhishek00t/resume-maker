@@ -9,6 +9,7 @@ export const Previewanddownload = ({
   setStepNumber,
   userDetail,
   stepNumber,
+  template,
 }) => {
   const [showResume, setShowResume] = useState(false);
   const [resumeFromServer, setresumeFromServer] = useState(" ");
@@ -18,8 +19,8 @@ export const Previewanddownload = ({
     console.log(stepNumber, stepNumber == 4);
     if (stepNumber == 4) {
       console.log("inside if");
-      fetch("http://localhost:8001/resume", {
-        headers: {},
+      fetch(`${process.env.REACT_APP_SERVERURL}resume?name=${template}`, {
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userDetail),
         method: "POST",
       }).then((resp) => {
@@ -32,7 +33,7 @@ export const Previewanddownload = ({
         });
       });
     }
-  }, [stepNumber]);
+  }, [stepNumber, template]);
   console.log(userDetail);
   const showPrevious = () => {
     setresumeFromServer(" ");
